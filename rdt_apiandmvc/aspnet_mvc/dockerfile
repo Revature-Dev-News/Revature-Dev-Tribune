@@ -1,0 +1,13 @@
+FROM mcr.microsoft.com/dotnet/sdk:5.0 as base
+
+WORKDIR /workspace
+COPY aspnet_mvc .
+RUN dotnet build
+RUN dotnet publish -c Release -o out MvcApp.Client/MvcApp.Client.csproj
+
+FROM mcr.microsoft.com/dotnet/aspnet:5.0
+
+WORKDIR /publish
+COPY --from=base workspace/out .
+# not machince based
+CMD ["dotnet", "MvcApp.Client.dll"]
