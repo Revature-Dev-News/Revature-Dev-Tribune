@@ -28,6 +28,14 @@ namespace StoreApi.Service.Controllers
       System.Console.WriteLine(Article);
       return await Task.FromResult(Ok(Article));
     }
+
+    [HttpGet("get_article_by_id/{id}")]
+    public async Task<IActionResult> GetSingleArticle(long id)
+    {
+      var Article = _repo.GetArticles().FirstOrDefault<Article>(a => a.EntityId == id);
+      return await Task.FromResult(Ok(Article));
+    }
+
     [HttpPost("create_article")]
     public async Task<IActionResult> CreateArticle(Article article)
     {

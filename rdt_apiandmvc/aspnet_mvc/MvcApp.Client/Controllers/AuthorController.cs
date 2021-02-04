@@ -94,32 +94,32 @@ namespace MvcApp.Client.Controllers
     }
 
     [HttpGet("show_article_creator")]
-        public async Task<IActionResult> ShowArticleCreator()
-        {
-            // Get the topics
-            var response = await _http.GetAsync(apiUrl + "Topic/topics");
+    public async Task<IActionResult> ShowArticleCreator()
+    {
+          // Get the topics
+          var response = await _http.GetAsync(apiUrl + "Topic/topics");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var JsonResponse = await response.Content.ReadAsStringAsync();
+          if (response.IsSuccessStatusCode)
+          {
+              var JsonResponse = await response.Content.ReadAsStringAsync();
 
-                var TopicViewModels = GenericJSONDeserializerFromTempDataWithComplexObj<List<TopicViewModel>>(JsonResponse);
+              var TopicViewModels = GenericJSONDeserializerFromTempDataWithComplexObj<List<TopicViewModel>>(JsonResponse);
 
-                List<SelectListItem> TopicSelectListItems = new List<SelectListItem>();
+              List<SelectListItem> TopicSelectListItems = new List<SelectListItem>();
 
-                foreach(var topic in TopicViewModels)
-                {
-                    TopicSelectListItems.Add(new SelectListItem(topic.Name, topic.Name));
-                }
+              foreach(var topic in TopicViewModels)
+              {
+                  TopicSelectListItems.Add(new SelectListItem(topic.Name, topic.Name));
+              }
 
-                var ArticleViewModel = new ArticleViewModel(TopicSelectListItems);
+              var ArticleViewModel = new ArticleViewModel(TopicSelectListItems);
 
-                //ViewBag.Topics = TopicSelectListItems;
-                TempData["TopicVMs"] = GenericJSONSerializer<List<TopicViewModel>>(TopicViewModels);
+              //ViewBag.Topics = TopicSelectListItems;
+              TempData["TopicVMs"] = GenericJSONSerializer<List<TopicViewModel>>(TopicViewModels);
 
-                return await Task.FromResult(View("ArticleCreator", ArticleViewModel));
-            }
-            return View("Error");
+              return await Task.FromResult(View("ArticleCreator", ArticleViewModel));
+          }
+          return View("Error");
         }
 
         private string GenericJSONSerializer<T>(T complexObject)
@@ -199,6 +199,62 @@ namespace MvcApp.Client.Controllers
 
             return View("show_article_creator");
         }
+
+        [HttpGet("show_article_editor/{id}")]
+        public async Task<IActionResult> ShowArticleEditor(long id)
+        {
+          var ArticleResponse = await _http.GetAsync(apiUrl + "Article/get_article_by_id/" + id);
+          var ArticleWasRecieved = false;
+          ArticleViewModel ArticleVM = null;
+
+          if (ArticleResponse.IsSuccessStatusCode)
+          {
+              var JsonResponse = await ArticleResponse.Content.ReadAsStringAsync();
+
+              ArticleVM = GenericJSONDeserializerFromTempDataWithComplexObj<ArticleViewModel>(JsonResponse);
+              ArticleWasRecieved = true;   
+          }
+
+          ArticleVM.ChosenTopic = ArticleVM.Topic.Name;
+
+          var TopicsResponse = await _http.GetAsync(apiUrl + "Topic/topics");
+          var TopicsWereReceived = false;
+          List<TopicViewModel> TopicVMs = new List<TopicViewModel>();
+          List<SelectListItem> TopicSelectListItems = new List<SelectListItem>();
+
+          if (TopicsResponse.IsSuccessStatusCode)
+          {
+              var JsonResponse = await TopicsResponse.Content.ReadAsStringAsync();
+
+              TopicVMs = GenericJSONDeserializerFromTempDataWithComplexObj<List<TopicViewModel>>(JsonResponse);
+              TopicsWereReceived = true;
+
+              foreach(var topic in TopicVMs)
+              {
+                  if (topic.Name == ArticleVM.Topic.Name)
+                  {
+                    TopicSelectListItems.Add(new SelectListItem(topic.Name, topic.Name, true));
+                  }
+                  else
+                  {
+                    TopicSelectListItems.Add(new SelectListItem(topic.Name, topic.Name, false));
+                  }
+              }
+          }
+
+          if (ArticleWasRecieved && TopicsWereReceived)
+          { 
+            ArticleVM.AvailableTopics = TopicSelectListItems;
+
+            TempData["TopicVMs"] = GenericJSONSerializer<List<TopicViewModel>>(TopicVMs);
+            TempData["ArticleVM"] = GenericJSONSerializer<ArticleViewModel>(ArticleVM);
+
+            return await Task.FromResult(View("ArticleEditor", ArticleVM));
+          }
+
+          return View("Error");
+        }
+        
 
         [HttpPost("edit_article")]
         public IActionResult EditArticle(ArticleViewModel articleVM)

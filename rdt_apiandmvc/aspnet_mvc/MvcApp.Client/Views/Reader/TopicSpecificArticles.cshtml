@@ -9,13 +9,13 @@
         <div class="row " id="section-Article">
           <div class="col-sm" id="col-div-right">
             <figure>
-              <img class="figure-img img-fluid" src="http://placekitten.com/300/600" alt="Article Image" style="width:400px;height:300px" >
+              <img class="figure-img img-fluid" src="@Model.Articles[i].TopicImageUrls[@Model.Articles[i].Topic.EntityId]" alt="Article Image" style="width:400px;height:300px" >
             </figure>
           </div>
           <div class="col-sm" id="col-div-right">
             <header>
               <h2>@Model.Articles[i].Title</h2>
-              <h3>@Model.Articles[i].Topic.Name</h3>
+              <h3 style="color: #6C757D;">@Model.Articles[i].Topic.Name</h3>
             </header>
             <body>
               <p>@Model.Articles[i].Body</p>

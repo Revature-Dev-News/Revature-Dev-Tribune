@@ -3,20 +3,12 @@
     <form asp-action="show_article_creator" asp-controller="author" method="GET" style="margin-bottom: 13px; display: flex; width: 100%; justify-content: flex-end">
         <button class="btn-primary" type="submit">New Article</button>
     </form>
-    <form action="" style="width: 100%; margin-bottom: 10px;">
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">
-                <i class="fa fa-search"></i>
-            </span>
-            <input type="text" class="form-control" placeholder="Search by Title" aria-label="Search by Title" aria-describedby="basic-addon1">
-        </div>
-    </form>
     <ul id="article_list">
         @for(var i = 0; i < @Model.Count; i++)
         {
             <li class="card" style="margin-bottom: 10px">
                 <div class="card-body">
-                    <a asp-action="view_article" asp-controller="author" asp-route-id="@Model[i].EntityId" method="POST">
+                    <a asp-action="show_article_editor" asp-controller="author" asp-route-id="@Model[i].EntityId" method="GET">
                         <h4>@Model[i].Title</h4>
                     </a>
                     <p>By: @Model[i].Author.Name</p>
@@ -24,7 +16,7 @@
                 <hr id="card-divider" />
                 <div class="card-body" id="article-sub-area">
                     <div style="width: 30%; display: flex; flex-direction: row">
-                        <form asp-action="view_article" asp-controller="author" method="GET">
+                        <form asp-action="show_article_editor" asp-route-id="@Model[i].EntityId" asp-controller="author" method="GET">
                             <button id="article-list-edit-btn" class="btn-link article-list-btn" type="submit">Edit</button>
                         </form>
                         <form asp-action="delete_article" asp-route-id="@Model[i].EntityId" asp-controller="author" method="POST">

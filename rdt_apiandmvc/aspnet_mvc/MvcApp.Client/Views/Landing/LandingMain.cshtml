@@ -5,12 +5,12 @@
 
 <div class="landing">
 
-      <div class="article-main" style="background-image:url(http://placekitten.com/500/500) ;">
+      <div class="article-main" style="background-image:url(@Model[0].TopicImageUrls[@Model[0].Topic.EntityId]) ;">
         <h2>@Model[0].Title</h2>
         <p>@Model[0].Author.Name</p>
       </div>
 
-      <div class="article-main" style="background-image:url(http://placekitten.com/500/600);" >
+      <div class="article-main" style="background-image:url(@Model[1].TopicImageUrls[@Model[1].Topic.EntityId]);" >
         <h2>@Model[1].Title</h2>
         <p>@Model[1].Author.Name</p>
       </div>
@@ -18,20 +18,20 @@
 </div>
 <div class="landing">
 
-        <div class="article-main-second" style="background-image:url(http://placekitten.com/300/400);" >
+        <div class="article-main-second" style="background-image:url(@Model[2].TopicImageUrls[@Model[2].Topic.EntityId]);" >
           <h3>@Model[2].Title</h3>
           <p>@Model[2].Author.Name</p>
         </div>
 
 
-        <div class="article-main-second" style="background-image:url(http://placekitten.com/300/700);" >
+        <div class="article-main-second" style="background-image:url(@Model[4].TopicImageUrls[@Model[4].Topic.EntityId]);" >
           <h3>@Model[4].Title</h3>
           <p>@Model[4].Author.Name</p>
         </div>
 
 
-        <div class="article-main-second" style="background-image:url(http://placekitten.com/300/300);" >
-          <h3>@Model[4].Title</h3>
-          <p>@Model[4].Author.Name</p>
+        <div class="article-main-second" style="background-image:url(@Model[5].TopicImageUrls[@Model[5].Topic.EntityId]);" >
+          <h3>@Model[5].Title</h3>
+          <p>@Model[5].Author.Name</p>
         </div>
 </div>
