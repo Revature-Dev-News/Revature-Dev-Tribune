@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: dotnet test ./asp_api_store/
-      - run: dotnet test ./aspnet_mvc/
+      # - run: dotnet test ./aspnet_mvc/
 
   analyze:
     needs:
@@ -40,8 +40,6 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"Revature-Dev-News_Revature-Dev-Tribune" /o:"rdtp2" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build ./aspnet_api_store/
           dotnet test ./aspnet_api_store/
-          dotnet build ./aspnet_mvc/
-          dotnet test ./aspnet_mvc/
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
   pack:
