@@ -16,7 +16,7 @@ namespace MvcApp.Client.Controllers
   [Route("[controller]")]
   public class ReaderController:Controller
   {
-    private string apiUrl = "https://localhost:5001/";
+    private string apiUrl = "https://rdtproject2api.azurewebsites.net/";
     private HttpClient _http;
 
     public ReaderController(){
@@ -24,7 +24,7 @@ namespace MvcApp.Client.Controllers
       clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
       _http = new HttpClient(clientHandler);
     }
-    
+
     [HttpGet("ReaderArticles")]
     public async Task<ActionResult> Get()
     {

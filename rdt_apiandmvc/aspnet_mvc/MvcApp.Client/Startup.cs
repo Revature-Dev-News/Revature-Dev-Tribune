@@ -25,20 +25,20 @@ namespace MvcApp.Client
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-          services.AddAuthentication(options =>
-          {
-              options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-              options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-              options.DefaultChallengeScheme = OktaDefaults.MvcAuthenticationScheme;
-          })
-          .AddCookie()
-          .AddOktaMvc(new OktaMvcOptions
-          {
-              // Replace these values with your Okta configuration
-              OktaDomain = "https://dev-93701432.okta.com",
-              ClientId = "oktaClient",
-              ClientSecret = "oktaSecret"
-          });
+          // services.AddAuthentication(options =>
+          // {
+          //     options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+          //     options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+          //     options.DefaultChallengeScheme = OktaDefaults.MvcAuthenticationScheme;
+          // })
+          // .AddCookie()
+          // .AddOktaMvc(new OktaMvcOptions
+          // {
+          //     // Replace these values with your Okta configuration
+          //     OktaDomain = "https://dev-93701432.okta.com",
+          //     ClientId = "oktaClient",
+          //     ClientSecret = "oktaSecret"
+          // });
             services.AddControllersWithViews();
         }
 
@@ -55,12 +55,12 @@ namespace MvcApp.Client
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            // app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

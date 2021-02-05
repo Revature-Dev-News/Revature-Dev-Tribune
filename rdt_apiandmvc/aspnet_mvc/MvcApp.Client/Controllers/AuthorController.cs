@@ -19,7 +19,7 @@ namespace MvcApp.Client.Controllers
   [Route("[controller]")] // route parser
   public class AuthorController : Controller // test change
   {
-    private string apiUrl = "https://localhost:5001/";
+    private string apiUrl = "https://rdtproject2api.azurewebsites.net/";
     private HttpClient _http;
 
     public AuthorController(){
