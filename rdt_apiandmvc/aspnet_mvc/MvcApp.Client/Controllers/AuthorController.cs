@@ -38,7 +38,7 @@ namespace MvcApp.Client.Controllers
     }
 
     [HttpPost("login")]
-    [Authorize]
+
     public async Task<IActionResult> Login(AuthorViewModel author)
     {
         _http.BaseAddress= new Uri(apiUrl+"Author/AuthorLogin");
