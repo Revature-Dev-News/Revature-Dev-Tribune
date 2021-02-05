@@ -20,7 +20,6 @@ jobs:
     needs: build
     runs-on: ubuntu-20.04
     steps:
-      # selects an action
       - uses: actions/checkout@v2
       - run: dotnet test ./asp_api_store/
       - run: dotnet test ./aspnet_mvc/
