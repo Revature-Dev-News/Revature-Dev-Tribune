@@ -23,7 +23,7 @@ namespace StoreApi.Service
         }
 
         public IConfiguration Configuration { get; }
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        // readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -42,15 +42,15 @@ namespace StoreApi.Service
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "StoreApi.Service", Version = "v1" });
             });
-          
-            services.AddCors(options =>
-            {
-               options.AddPolicy(name: MyAllowSpecificOrigins,
-               builder =>
-               {
-                   builder.WithOrigins("https://rdtp2final.azurewebsites.net").AllowAnyHeader().AllowAnyMethod();
-               });
-            });
+
+            // services.AddCors(options =>
+            // {
+            //    options.AddPolicy(name: MyAllowSpecificOrigins,
+            //    builder =>
+            //    {
+            //        builder.WithOrigins("https://rdtp2final.azurewebsites.net").AllowAnyHeader().AllowAnyMethod();
+            //    });
+            // });
 
 
 
@@ -68,8 +68,8 @@ namespace StoreApi.Service
             app.UseHttpsRedirection();
 
             app.UseRouting();
-          
-            app.UseCors(MyAllowSpecificOrigins);
+
+            // app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
